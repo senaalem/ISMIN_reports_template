@@ -12,6 +12,8 @@
   set document(title: title)
   set text(lang: "fr")
 
+  set figure.caption(separator: [ : ])
+
   let count = authors.len()
   let ncols = calc.min(count, 3)
 
@@ -110,15 +112,15 @@
 
   // contenu
   set page(header:[
-    #smallcaps[#header-title]
-    #h(1fr)
-    #smallcaps[#header-subtitle]
-    #align(horizon)[#line(length: 100%, stroke: 0.2pt)]
+      #smallcaps[#header-title]
+      #h(1fr)
+      #smallcaps[#header-subtitle]
+      #align(horizon)[#line(length: 100%, stroke: 0.2pt)]
     ]
   )
 
-  set par(first-line-indent: 1em, justify: true)
-  set heading(numbering: "1.1. ")
+  set par(first-line-indent: 2em, justify: true)
+  set heading(numbering: "1.1  ")
 
   body
 }
@@ -127,3 +129,4 @@
 #let violet-emse = rgb("#5f259f")
 #let gray-emse = rgb("#5c6670")
 #let question(q) = heading(level: 2, numbering: none, outlined: false, q)
+#let tab = h(2em)
