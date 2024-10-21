@@ -11,7 +11,8 @@
 ) = {
   set document(title: title)
   set text(lang: "fr")
-
+  
+  // le séparateur dans la légende des figures
   set figure.caption(separator: [ : ])
 
   let count = authors.len()
@@ -27,13 +28,15 @@
 
   // on règle l'affichage du code
   show raw: it => {
-    text(font: "Consolas", it) // police pour les blocs de texte brut
+    text(font: "Cascadia Code", it) // police pour les blocs de texte brut
   }
+  
   // on règle l'affichage des blocs de code
   show raw.where(block: true): block.with(
     fill: luma(240),
     radius: 3pt,
-    inset: 8pt
+    inset: 10pt,
+    stroke: 0.1pt
   )
 
   // on règle l'affichage du code en ligne
@@ -62,6 +65,13 @@
   // permet de casser l'affichage des figures
   show figure: set block(breakable: true)
 
+  show heading: set text(fill: primary-color)
+
+  show quote.where(block: true): rect.with(
+    stroke: (left: 2.5pt + secondary-color),
+    inset: (left: 1em)
+  )
+  
   // police de texte
   set text(font: body-font)
 
@@ -83,7 +93,7 @@
   align(center + horizon)[
     #box(width: 80%)[
       #line(length: 100%)
-      #text(size: 25pt)[*#title* \ #subtitle]
+      #text(size: 25pt)[#smallcaps[*#title*] \ #subtitle]
       #line(length: 100%)
       #v(10pt)
       #text(size: 18pt)[
@@ -93,7 +103,7 @@
           column-gutter: 15pt,
           columns: (1fr,) * ncols,
           ..authors.map(author => [
-            #strong(author.name + " " + author.surname) \ #author.affiliation #author.year \ #emph(author.class)
+            #strong(author.name + " " + smallcaps[#author.surname]) \ #author.affiliation #author.year \ #emph(author.class)
           ])
         )
       ]
@@ -128,5 +138,4 @@
 // fonctions
 #let violet-emse = rgb("#5f259f")
 #let gray-emse = rgb("#5c6670")
-#let question(q) = heading(level: 2, numbering: none, outlined: false, q)
 #let tab = h(2em)
