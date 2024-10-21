@@ -24,9 +24,50 @@
   date: "Date"
 )
 
-= Partie 1
+#tab Ce _template_ est utilisé pour écrire les rapports à l'ISMIN.
+Vous pouvez évidemment en modifier le contenu.
+Pour commencer, il peut être bon de mettre un titre.
+En Typst, on fait comme suit :
 
-#tab #lorem(30)
+#align(center)[
+  ```typ
+  = Super titre
+  
+  == Excellent sous-titre
+  ```
+]
+
+
+= Explications
+
+== ```typst #tab```
+
+=== Sans
+
+Si je n'utilise pas ```typst #tab```, le premier paragraphe n'est pas indenté.
+Je vais utiliser ```typst #lorem``` pour l'illustrer.
+#lorem(25)
+
+#lorem(30)
+
+Tout les paragraphes sont tabulés ensuite.
+#lorem(56)
+
+#lorem(80)
+
+#lorem(20)
+
+=== Avec
+
+#tab Ici, j'utilise ```typ #tab``` pour que la première ligne soit indentée elle aussi.
+#lorem(45)
+
+#lorem(100)
+
+== ```typ #table```
+
+#tab On peut faire des tableaux grâce à la fonction ```typst #table```, comme suit.
+Il est de bon goût de placer le tableau dans une figure (fonction ```typst #figure```) afin de lui affecter une légende et qu'elle soit référencée dans la #link(<fig_outline>)[table des figures].
 
 #figure(caption: [Un tableau])[
   #table(
@@ -41,9 +82,10 @@
   )
 ]
 
-== Sous-partie 1
+== ```typ #raw```
 
-#tab #lorem(70)
+On peut styliser du code avec ```typ #raw```, ou un/trois _backtick(s)_ (\`#footnote[J'ai pu mettre un \` grâce à l'_escape character_ de Typst : l'_antislash_ (\\).]).
+Voici un exemple avec du Python :
 
 #figure(caption: [Un petit bout de code])[
   ```py
@@ -59,12 +101,13 @@
   ```
 ] <code-py-rr>
 
-#tab #lorem(56)
-#lorem(3) ```c int fly_away(int a, char *b)``` #lorem(69)
+#tab Typst prend en charge de la coloration syntaxique pour énormément de langages#footnote[Les mêmes que pour le standard Markdown en fait.].
+On peut aussi inclure du code dans une ligne : ```c void inline_func(char* line, int n);```
 
-= Partie 2
 
-#tab #lorem(45)
+== Les maths
+
+#tab On peut utiliser le mode math en blocs (```typst $ x = 2 $```) ou en ligne (```typst $x = 2$```).
 
 #figure(
   caption: [Équations de Maxwell],
@@ -79,20 +122,20 @@
   $
 ]
 
-#tab #lorem(100)
+#tab L'équation de Maxwell préférée de mon amie est celle dite de Maxwell-Faraday (locale) obtenue grâce au théorème de Stokes : $integral.cont_C arrow(E) dif arrow(cal(l)) = - dif / (dif t) (integral_S arrow(B) dif arrow(S))$
 
-= Partie 3
+== Les liens/références et les images
 
-== Sous-partie 1
-
-#tab Voici une image tirée de #link("https://x.com/chatmignon__")[Twitter] : 
+#tab Voici une image tirée de #link("https://x.com/chatmignon__")[Twitter] (j'ai fait un lien vers Twitter) : 
 #figure(caption: [Toto apprend à Tigre comment coder en Python])[
   #image("images/toto_tigre.jpg", height: 30%)
-]Le code en question est juste #link(<code-py-rr>)[là].
+]
+#tab Le code en question est juste #link(<code-py-rr>)[là] (j'ai fait une référence vers un endroit dans le document).
+Changeons de page.
 
 #pagebreak()
 
-== Sous-partie 2
+== Les citations
 
 #quote(block: true, attribution: <wot_8>)[
   Moi, je n’ai jamais été vaincu !
@@ -102,9 +145,24 @@
 
 D'après un autre individu (invincible également), il serait bon que tu #quote(attribution: <sam_2>)[adopte un chien].
 
+== Autres
+
+#tab Typst offre énormément d'autres possibilités, n'hésitez pas à consulter la documentation !
+
+= Partie 2
+
+#tab #lorem(67)
+
+= Partie 2
+
+#tab #lorem(67)
+
+#lorem(42)
+
+
 #bibliography("bibs.yaml", style: "ieee")
 
-#heading(numbering: none)[Table des figures]
+#heading(numbering: none)[Table des figures] <fig_outline>
 #outline(target: figure, title: none)
 
 #heading(numbering: none)[Glossaire]
