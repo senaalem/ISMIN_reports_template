@@ -1,3 +1,4 @@
+#let arcosh = math.op(limits: false, "arcosh")
 // fonctions
 #let violet-emse = rgb("#5f259f")
 #let gray-emse = rgb("#5c6670")
@@ -17,126 +18,33 @@
   header-subtitle: "",
   body
 ) = {
-  set document(title: title)
-  set text(lang: "fr")
-  
-  // le séparateur dans la légende des figures
-  set figure.caption(separator: [ : ])
-
-  show figure.caption: it => [
-    #smallcaps[
-      #it.supplement #context it.counter.display(it.numbering)
-    ]
-    #it.separator
-    #it.body
-  ]
-  
-  // l'affichage des listes
-  set enum(
-    indent: 1em,
-    numbering: n => [#text(fill: rgb(main-color), numbering("1.", n))]
-  )
-
-  set list(
-    indent: 1em,
-    marker: ([#text[--]], [#text(fill: violet-emse)[•]], [#text(fill: violet-emse)[‣]])
-  )
-
-  set par(
-    leading: 0.55em,
-    spacing: 1em,
-    first-line-indent: 1.8em,
-    justify: true
-  )
-
-  set page(margin: 1.75in)
+  let primary-color = violet-emse
+  let block-color = primary-color.lighten(90%)
+  let body-color = primary-color.lighten(80%)
+  let header-color = primary-color.lighten(65%)
+  let fill-color = primary-color.lighten(50%)
 
   let count = authors.len()
   let ncols = calc.min(count, 3)
 
-  // on enregistre les polices du document dans des variables
   let title-font = "Klima"
   let body-font = "New Computer Modern"
+  
+  set document(title: title)
+  
+  set text(lang: "fr")
 
-  // on enregistre les couleurs du document dans des variables
-  let primary-color = rgb(main-color)
-  let secondary-color = rgb("#5c6670")
-
-  // on règle l'affichage du code
-  show raw: it => {
-    text(
-      font: "Cascadia Mono",
-      features: ("zero",),
-      it
-    ) // police pour les blocs de texte brut
-  }
- 
-  // on règle l'affichage des blocs de code
-  show raw.where(block: true): block.with(
-    fill: luma(240),
-    radius: 3pt,
-    inset: 10pt,
-    stroke: 0.1pt,
-    width: 100%
-  )
-  show raw.where(block: true): text.with(
-    size: 8pt,
-  )
-
-  // on règle l'affichage du code en ligne
-  show raw.where(block: false): box.with(
-    fill: luma(240),
-    inset: (x: 3pt, y: 0pt),
-    outset: (y: 3pt),
-    radius: 3pt,
-  )
+  set page(margin: 1.75in)
   
   // on règle l'affichage des équations en ligne
   show math.equation: set text(font: "New Computer Modern Math")
 
-  // on règle l'affichage des blocs d'équation
-  show math.equation: it => { 
-    show regex("\d+\.\d+"): it => {
-      show ".": {"," + h(0pt)}
-      it
-    }
-    it
-  } // permet d'utiliser les virgules comme séparateur décimal
-
-  // on règle l'affichage des liens
-  show link: it => {
-    if type(it.dest) == str {
-      text[
-        #it#super(
-          typographic: false,
-          size: 0.75em,
-          text(fill: maroon, sym.circle.small)
-        )
-      ]
-    } else {
-      text[
-        #it#super(
-          typographic: false,
-          size: 0.75em,
-          text(fill: maroon, sym.square)
-        )
-      ]
-    }
-  }
-
-  // permet de casser l'affichage des figures
-  show figure: set block(breakable: true)
-
-  show heading: set text(fill: primary-color)
-  show heading: set block(above: 1.4em, below: 1em)
-
-  show quote.where(block: true): rect.with(
-    stroke: (left: 1.5pt + primary-color),
-    inset: (left: 1em)
-  )
-  
   // police de texte
   set text(font: body-font, number-type: "old-style")
+
+  // 
+  show heading: set text(fill: primary-color)
+  show heading: set block(above: 1.4em, below: 1em)
 
   // page de garde
   set page(margin: 0%)
@@ -170,12 +78,13 @@
           column-gutter: 15pt,
           columns: (1fr,) * ncols,
           ..authors.map(author => [
-            #strong(author.name + " " + author.surname) \ #author.affiliation #lining[#author.year] \ #emph(author.class)
+            #strong(author.name + " " + author.surname) \ #author.affiliation #author.year \ #emph(author.class)
           ])
         )
       ]
     ]
   ]
+  
   pagebreak()
   
   // table des matières
@@ -208,6 +117,7 @@
       let chapter = smallcaps(text(
         size: 0.68em,
         tracking: 0.5pt,
+        fill: primary-color,
         current.body
       ))
       if is-odd {
@@ -215,36 +125,163 @@
       } else {
         align(aln)[#text(number-type: "lining")[#i] #h(gap) #chapter]
       }
-      }
+    }
   })
 
   // contenu
   set page(header: [
     #text(size: 9pt)[
-      #header-title
-      #h(1fr)
-      #strong[#header-middle]
-      #h(1fr)
-      #emph[#header-subtitle]
-      #line(length: 100%, stroke: 0.5pt)
+      #grid(
+        columns: (1fr, 1fr, 1fr),
+        align: (left, center, right),
+        rows: 1,
+        header-title,
+        [#text(weight: "bold", header-middle)],
+        [#text(style: "italic", header-subtitle)]
+      )
+      #line(length: 100%, stroke: 0.4pt + black)
     ]
   ])
   
-  outline(indent: true)
-
-  pagebreak()
-
+  // réglage des titres
   set heading(numbering: (..n) => 
     text(number-type: "lining", numbering("1.1  ", ..n))
   )
+  show heading: set text(fill: primary-color)
+  show heading: set block(above: 1.4em, below: 1em)
 
-  show table: set text(number-type: "lining")
+  // l'affichage des listes
+  set enum(
+    indent: 1em,
+    numbering: n => [#text(fill: rgb(main-color), numbering("1.", n))]
+  )
 
-  show figure: set block(inset: (top: 0.5em, bottom: 0.7em))
+  set list(
+    indent: 1em,
+    marker: ([#text(fill: primary-color)[--]], [#text(fill: primary-color)[•]], [#text(fill: primary-color)[‣]])
+  )
 
-  set figure.caption(position: top)
-  show figure.where(kind: image): set figure.caption(position: bottom)
+  // réglages paragraphes
+  set par(
+    leading: 0.55em,
+    spacing: 1em,
+    first-line-indent: 1.8em,
+    justify: true
+  )
+
+  // le séparateur dans la légende des figures
+  set figure.caption(separator: [ : ])
+
+  show figure.caption: it => [
+    #smallcaps[
+      #it.supplement #context it.counter.display(it.numbering)
+    ]
+    #it.separator
+    #it.body
+  ]
+
+  // permet de casser l'affichage des figures
+  show figure: set block(breakable: false)
+
+    // on règle l'affichage du code
+  show raw: it => {
+    text(
+      font: "Cascadia Mono",
+      features: ("zero",),
+      it
+    ) // police pour les blocs de texte brut
+  }
+ 
+  // on règle l'affichage des blocs de code
+  show raw.where(block: true): block.with(
+    fill: block-color,
+    radius: 0.5em,
+    inset: 1em,
+    stroke: 0.1pt,
+    width: 100%
+  )
+
+  // on règle l'affichage du code en ligne
+  show raw.where(block: false): box.with(
+    fill: block-color,
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 3pt,
+  )
+  
+  // on règle l'affichage des équations en ligne
+  show math.equation: set text(font: "New Computer Modern Math")
+
+  // on règle l'affichage des blocs d'équation
+  show math.equation: it => { 
+    show regex("\d+\.\d+"): it => {
+      show ".": {"," + h(0pt)}
+      it
+    }
+    it
+  } // permet d'utiliser les virgules comme séparateur décimal
+
+  // on règle l'affichage des liens
+  show link: it => {
+    if type(it.dest) == str {
+      text[
+        #it#super(
+          typographic: false,
+          size: 0.75em,
+          text(fill: blue, sym.circle.small)
+        )
+      ]
+    } else {
+      text[
+        #it#super(
+          typographic: false,
+          size: 0.75em,
+          text(fill: fill-color, sym.square)
+        )
+      ]
+    }
+  }
+
+  // bloc de citation
+  show quote.where(block: true): it => {
+    v(-5pt)
+    block(
+      fill: block-color, inset: 5pt, radius: 1pt, 
+      stroke: (left: 3pt+fill-color), width: 100%, 
+      outset: (left:-5pt, right:-5pt, top: 5pt, bottom: 5pt)
+      )[#it]
+    v(-5pt)
+  }
+
+  // augmente l'espacement entre les lettres pour les smallcaps
+  show smallcaps: set text(tracking: 0.5pt)
+  
+  // tableaux
+  show table: set table(
+    stroke: 0.6pt + primary-color,
+    fill: (x, y) =>
+      if y == 0 {
+        body-color
+      } else if calc.even(y) {
+        block-color
+      } else {
+        none
+      }
+    ,
+    inset: (x: 0.4em, y: 0.4em)
+  )
+  show table.cell.where(y: 0): set text(
+    style: "normal", weight: "bold"
+  )
+
+
+  // réglages figures
+  show figure: set block(breakable: true)
+  show figure.where(kind: table): set figure(supplement: [Tabl.])
+  show figure.where(kind: raw): set figure(supplement: [List.])
+  show figure.where(kind: raw): set align(left)
+  show figure.caption.where(kind: raw): set align(center)
+  show figure.where(kind: "equation"): set figure(supplement: [Équ.])
   
   body
 }
-

@@ -25,6 +25,9 @@
   date: "Date"
 )
 
+#outline(indent: true)
+#pagebreak()
+
 #tab Ce _template_ est utilisé pour écrire les rapports à l'ISMIN.
 Vous pouvez évidemment en modifier le contenu.
 Pour commencer, il peut être bon de mettre un titre.
@@ -62,11 +65,9 @@ Je vais utiliser ```typst #lorem``` pour l'illustrer.
 
 #tab Ici, j'utilise ```typ #tab``` pour que la première ligne soit indentée elle aussi.
 
-Salut "beauté".
+Salut "beauté."
 Tu aimes les pommes.
 #smallcaps[Vraiment, des pommes ? Comme c'est étrange.]
-
-#lorem(45)
 
 #lorem(100)
 
@@ -117,8 +118,7 @@ On peut aussi inclure du code dans une ligne : ```c void inline_func(char* line,
 
 #figure(
   caption: [Équations de Maxwell],
-  kind: "Équation",
-  supplement: "Équation"
+  kind: "equation"
   )[
   $ 
     op("div")(arrow(E)) &= rho / epsilon_0  \
@@ -188,7 +188,7 @@ D'après un autre individu (invincible également), il serait bon que tu #quote(
 
 #tab #lorem(67)
 
-= Partie 2
+= Partie 3
 
 #tab #lorem(67)
 
@@ -204,4 +204,3 @@ D'après un autre individu (invincible également), il serait bon que tu #quote(
 / Terme: Une définition de ce terme.
 / Autre terme: Une définition de cet autre terme.
 / UAVM: Un Acronyme Vraiment Mystérieux.
-
