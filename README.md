@@ -4,7 +4,7 @@ Ce _template_ est celui que j'utilise pour écrire mes rapports à l'EMSE.
 Il utilise le langage Typst et est grandement inspiré de [celui de Timothé Dupuch](https://github.com/thimotedupuch/Template_Rapport_ISMIN_Typst),
 du [_template_ Bubble](https://github.com/hzkonor/bubble-template),
 du [_template_ ilm](https://github.com/talal/ilm),
-et enfin du [_template_ Diatypst]("https://github.com/skriptum/Diatypst").
+et enfin du [_template_ Diatypst](https://github.com/skriptum/Diatypst).
 Beaucoup des règles de typographie ont été tirées du [_Butterick's Practical Typography_](https://practicaltypography.com/).
 
 Le fichier `template_report_ISMIN.pdf` est un apercu en PDF du résultat de la compilation.
