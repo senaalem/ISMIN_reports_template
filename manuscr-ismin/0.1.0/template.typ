@@ -1,12 +1,12 @@
-#let arcosh = math.op(limits: false, "arcosh")
 // fonctions
 #let violet-emse = rgb("#5f259f")
 #let gray-emse = rgb("#5c6670")
-#let tab = h(1.8em)
-#let mono(it) = text(font: "New Computer Modern Mono", number-type: "lining", it)
+#let mono(it) = text(font: "Libertinus Mono", number-type: "lining", it)
 #let lining(it) = text(number-type: "lining", it)
+#let arcosh = math.op(limits: false, "arcosh")
 
-#let rectangle(
+// template
+#let manuscr-ismin(
   title: "",
   subtitle: "",
   authors: (),
@@ -16,6 +16,10 @@
   header-title: "",
   header-middle: "",
   header-subtitle: "",
+  body-font: "Libertinus Serif",
+  code-font: "Cascadia Mono",
+  math-font: "Libertinus Math",
+  number-style: "old-style",
   body
 ) = {
   let primary-color = violet-emse
@@ -27,28 +31,23 @@
   let count = authors.len()
   let ncols = calc.min(count, 3)
 
-  let title-font = "Klima"
-  let body-font = "New Computer Modern"
-  
   set document(title: title)
-  
+
   set text(lang: "fr")
 
   set page(margin: 1.75in)
-  
-  // on règle l'affichage des équations en ligne
-  show math.equation: set text(font: "New Computer Modern Math")
 
-  // police de texte
-  set text(font: body-font, number-type: "old-style")
+    // police de texte
+  set text(font: body-font, number-type: number-style)
 
-  // 
+
+  // titres
   show heading: set text(fill: primary-color)
   show heading: set block(above: 1.4em, below: 1em)
 
   // page de garde
   set page(margin: 0%)
-  
+
   place(top + center,
     rect(width: 100%, fill: primary-color)[
       #v(2%)
@@ -56,37 +55,54 @@
       #v(2%)
     ]
   )
-  
+
   place(bottom + center, rect(width: 200%, fill: primary-color, [#v(3%)]))
 
-  place(bottom + center, dy: -150pt, text(size: 18pt)[#date])
+  if date != "" {
+    place(bottom + center, dy: -150pt, text(size: 18pt)[#date])
+  }
 
   align(center + horizon)[
     #box(width: 70%)[
       #line(length: 100%)
       #v(15pt)
       #text(size: 25pt)[*#title*]
-      
-      #text(size: 25pt)[#subtitle]
+      #if subtitle != "" {
+        linebreak()
+        linebreak()
+        text(size: 25pt)[#subtitle]
+      }
       #v(15pt)
       #line(length: 100%)
       #v(20pt)
-      #text(size: 18pt)[
+      #text(size: 17pt)[
         #table(
           align: center,
           stroke: none,
           column-gutter: 15pt,
           columns: (1fr,) * ncols,
           ..authors.map(author => [
-            #strong(author.name + " " + author.surname) \ #author.affiliation #author.year \ #emph(author.class)
+            #if author.name != "" {
+              strong(author.name); linebreak()
+            }
+            #if author.affiliation != "" and author.year != "" {
+              author.affiliation; " "; author.year; linebreak()
+            } else if author.affiliation != "" and author.year == "" {
+              author.affiliation; linebreak()
+            } else if author.affiliation == "" and author.year != "" {
+              author.year; linebreak()
+            }
+            #if author.class != "" {
+              emph(author.class)
+            }
           ])
         )
       ]
     ]
   ]
-  
+
   pagebreak()
-  
+
   // table des matières
   set page(
     margin: auto,
@@ -97,19 +113,19 @@
   // Footer
   set page(footer: context {
     let i = counter(page).at(here()).first()
-  
+
     let is-odd = calc.odd(i)
     let aln = if is-odd {
       right
     } else {
       left
     }
-  
+
     let target = heading.where(level: 1)
     if query(target).any(it => it.location().page() == i) {
       return align(aln)[#text(number-type: "lining")[#i]]
     }
-  
+
     let before = query(target.before(here()))
     if before.len() > 0 {
       let current = before.last()
@@ -142,9 +158,9 @@
       #line(length: 100%, stroke: 0.4pt + black)
     ]
   ])
-  
+
   // réglage des titres
-  set heading(numbering: (..n) => 
+  set heading(numbering: (..n) =>
     text(number-type: "lining", numbering("1.1  ", ..n))
   )
   show heading: set text(fill: primary-color)
@@ -165,7 +181,7 @@
   set par(
     leading: 0.55em,
     spacing: 1em,
-    first-line-indent: 1.8em,
+    first-line-indent: (all: true, amount: 1.8em),
     justify: true
   )
 
@@ -186,12 +202,11 @@
     // on règle l'affichage du code
   show raw: it => {
     text(
-      font: "Cascadia Mono",
-      features: ("zero",),
+      font: code-font,
       it
     ) // police pour les blocs de texte brut
   }
- 
+
   // on règle l'affichage des blocs de code
   show raw.where(block: true): block.with(
     fill: block-color,
@@ -208,12 +223,12 @@
     outset: (y: 3pt),
     radius: 3pt,
   )
-  
+
   // on règle l'affichage des équations en ligne
   show math.equation: set text(font: "New Computer Modern Math")
 
   // on règle l'affichage des blocs d'équation
-  show math.equation: it => { 
+  show math.equation: it => {
     show regex("\d+\.\d+"): it => {
       show ".": {"," + h(0pt)}
       it
@@ -246,8 +261,8 @@
   show quote.where(block: true): it => {
     v(-5pt)
     block(
-      fill: block-color, inset: 5pt, radius: 1pt, 
-      stroke: (left: 3pt+fill-color), width: 100%, 
+      fill: block-color, inset: 5pt, radius: 1pt,
+      stroke: (left: 3pt+fill-color), width: 100%,
       outset: (left:-5pt, right:-5pt, top: 5pt, bottom: 5pt)
       )[#it]
     v(-5pt)
@@ -255,7 +270,7 @@
 
   // augmente l'espacement entre les lettres pour les smallcaps
   show smallcaps: set text(tracking: 0.5pt)
-  
+
   // tableaux
   show table: set table(
     stroke: 0.6pt + primary-color,
@@ -273,15 +288,22 @@
   show table.cell.where(y: 0): set text(
     style: "normal", weight: "bold"
   )
+  show table: set text(number-type: "lining")
 
+  // on règle l'affichage des équations en ligne
+  show math.equation: set text(font: math-font)
 
   // réglages figures
   show figure: set block(breakable: true)
   show figure.where(kind: table): set figure(supplement: [Tabl.])
+  show figure.where(kind: table): set figure.caption(position: top)
+
   show figure.where(kind: raw): set figure(supplement: [List.])
   show figure.where(kind: raw): set align(left)
+  show figure.where(kind: raw): set figure.caption(position: top)
   show figure.caption.where(kind: raw): set align(center)
+
   show figure.where(kind: "equation"): set figure(supplement: [Équ.])
-  
+
   body
 }
