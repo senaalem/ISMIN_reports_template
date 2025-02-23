@@ -1,7 +1,6 @@
 // fonctions
 #let violet-emse = rgb("#5f259f")
 #let gray-emse = rgb("#5c6670")
-#let mono(it) = text(font: "Libertinus Mono", number-type: "lining", it)
 #let lining(it) = text(number-type: "lining", it)
 #let arcosh = math.op(limits: false, "arcosh")
 
@@ -19,6 +18,7 @@
   body-font: "Libertinus Serif",
   code-font: "Cascadia Mono",
   math-font: "Libertinus Math",
+  mono-font: "Libertinus Mono",
   number-style: "old-style",
   body
 ) = {
@@ -307,3 +307,5 @@
 
   body
 }
+
+#let mono(it) = text(font: mono-font, number-type: "lining", it)
