@@ -8,7 +8,7 @@ description = "Template used for writing reports and/or various documents at the
 repository = "https://github.com/senaalem/ISMIN_reports_template"
 keywords = ["ISMIN", "EMSE", "Mines", "École des Mines de Saint-Étienne", "report"]
 categories = ["layout", "report"]
-exclude = "template_report_ISMIN.pdf"
+exclude = ["template_report_ISMIN.pdf"]
 
 [template]
 path = "template"

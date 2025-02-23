@@ -11,7 +11,7 @@
   subtitle: "",
   authors: (),
   date: "",
-  logo: none,
+  logo: "",
   main-color: rgb(87,42,134),
   header-title: "",
   header-middle: "",
@@ -51,7 +51,7 @@
   place(top + center,
     rect(width: 100%, fill: primary-color)[
       #v(2%)
-      #align(center)[#image("assets/logo_emse_white.svg", width: 50%)]
+      #align(center)[#image(logo, width: 50%)]
       #v(2%)
     ]
   )

@@ -17,6 +17,7 @@
       class: "Classe 2"
     )
   ),
+  logo: "assets/logo_emse_white.svg",
   header-title: "En-tête 1",
   header-subtitle: "En-tête 3",
   header-middle: [En-tête 2],
