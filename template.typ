@@ -4,25 +4,31 @@
 #let lining(it) = text(number-type: "lining", it)
 #let arcosh = math.op(limits: false, "arcosh")
 
+#let fonts-data = yaml("template/conf.yaml")
+
+#let body-font = fonts-data.fonts.body-font
+#let code-font = fonts-data.fonts.code-font
+#let math-font = fonts-data.fonts.math-font
+#let mono-font = fonts-data.fonts.mono-font
+
+#let mono(it) = text(font: mono-font, number-type: "lining", it)
+
 // template
 #let manuscr-ismin(
+  uptitle: "",
   title: "",
   subtitle: "",
   authors: (),
   date: "",
   logo: "",
-  main-color: rgb(87,42,134),
+  main-color: violet-emse,
   header-title: "",
   header-middle: "",
   header-subtitle: "",
-  body-font: "Libertinus Serif",
-  code-font: "Cascadia Mono",
-  math-font: "New Computer Modern Math",
-  mono-font: "Libertinus Mono",
-  number-style: "old-style",
+  number-style: "lining",
   body
 ) = {
-  let primary-color = violet-emse
+  let primary-color = main-color
   let block-color = primary-color.lighten(90%)
   let body-color = primary-color.lighten(80%)
   let header-color = primary-color.lighten(65%)
@@ -37,9 +43,8 @@
 
   set page(margin: 1.75in)
 
-    // police de texte
+  // police de texte
   set text(font: body-font, number-type: number-style)
-
 
   // titres
   show heading: set text(fill: primary-color)
@@ -64,6 +69,10 @@
 
   align(center + horizon)[
     #box(width: 70%)[
+      #if uptitle != "" {
+        set text(tracking: 2pt, number-type: "old-style")
+        smallcaps(lower(uptitle))
+      }
       #line(length: 100%)
       #v(15pt)
       #text(size: 25pt)[*#title*]
@@ -93,7 +102,11 @@
               author.year; linebreak()
             }
             #if author.class != "" {
-              emph(author.class)
+              emph(author.class); linebreak()
+            }
+            #if author.email != "" {
+              set text(size: 12pt)
+              link("mailto:" + author.email, mono(author.email))
             }
           ])
         )
@@ -106,7 +119,7 @@
   // table des matières
   set page(
     margin: auto,
-    numbering: (n, ..) => [#text(number-type: "lining")[#n]],
+    numbering: (n, ..) => [#n],
     number-align: center
   )
 
@@ -123,19 +136,19 @@
 
     let target = heading.where(level: 1)
     if query(target).any(it => it.location().page() == i) {
-      return align(aln)[#text(number-type: "lining")[#i]]
+      return align(aln)[#i]
     }
 
     let before = query(target.before(here()))
     if before.len() > 0 {
       let current = before.last()
       let gap = 1.75em
-      let chapter = smallcaps(text(
+      let chapter = smallcaps(lower(text(
         size: 0.68em,
         tracking: 0.5pt,
         fill: primary-color,
         current.body
-      ))
+      )))
       if is-odd {
         align(aln)[#chapter #h(gap) #text(number-type: "lining")[#i]]
       } else {
@@ -161,7 +174,7 @@
 
   // réglage des titres
   set heading(numbering: (..n) =>
-    text(number-type: "lining", numbering("1.1  ", ..n))
+    text(number-type: "lining", numbering("1.1. ", ..n))
   )
   show heading: set text(fill: primary-color)
   show heading: set block(above: 1.4em, below: 1em)
@@ -203,6 +216,7 @@
   show raw: it => {
     text(
       font: code-font,
+      number-type: "lining",
       it
     ) // police pour les blocs de texte brut
   }
@@ -225,7 +239,7 @@
   )
 
   // on règle l'affichage des équations en ligne
-  show math.equation: set text(font: "New Computer Modern Math")
+  show math.equation: set text(font: math-font)
 
   // on règle l'affichage des blocs d'équation
   show math.equation: it => {
@@ -268,9 +282,6 @@
     v(-5pt)
   }
 
-  // augmente l'espacement entre les lettres pour les smallcaps
-  show smallcaps: set text(tracking: 0.5pt)
-
   // tableaux
   show table: set table(
     stroke: 0.6pt + primary-color,
@@ -308,4 +319,3 @@
   body
 }
 
-#let mono(it) = text(font: mono-font, number-type: "lining", it)
