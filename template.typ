@@ -10,8 +10,10 @@
 #let code-font = conf-data.fonts.code-font
 #let math-font = conf-data.fonts.math-font
 #let mono-font = conf-data.fonts.mono-font
+#let sans-font = conf-data.fonts.sans-font
 
 #let mono(it) = text(font: mono-font, number-type: "lining", it)
+#let sans(it) = text(font: sans-font, it)
 
 #let main-color = conf-data.main-color
 

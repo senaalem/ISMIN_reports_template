@@ -69,8 +69,19 @@ Ci-suit une description des paramètres de la fonction `manuscr-ismin` :
 
 - `violet-emse` : la couleur violette de l'EMSE,
 - `gray-emse` : la couleur grise de l'EMSE,
+
 - `lining` : pour avoir des nombres en style classique localement si vous avez pris `"old-style"` ; les chiffres elzéviriens s'intégrent bien au texte minuscule, mais mal à celui en majusucule.
 	Par exemple, `#lining[STM32L436RG]` est bien plus élégant que `STM32L476RG`,
 - `arcosh` : la fonction arc cosinus hyperbolique pour le mode mathématique (j'en avais besoin),
 - `mono` : à utiliser pour retourner rapidement du texte en monospace sans la mise en forme de `raw` ;
-	À utiliser pour par exemple indiquer des noms de fichier : `toto_tigre.png`.
+	À utiliser pour par exemple indiquer des noms de fichier : `#mono[toto_tigre.png]`,
+- `sans` : à utiliser pour retourner rapidement du texte en sans-serif (par exemple `#sans[adder]`),
+
+- `body-font` : la police pour le corps du texte,
+- `code-font` : la police utilisée par la fonction `raw`,
+- `math-font` : la police utilisée pour les équations mathématique,
+- `mono-font` : la police utilisée pour la fonction `mono`,
+- `sans-font` : la police utilisée pour la fonction `sans`,
+
+- `primary-color` : la couleur par défaut du document,
+- `block color`, `body-color`, `header-color`, `fill-color` : couleurs "éclaircies" dérivées de `primary-color`
