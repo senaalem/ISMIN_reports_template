@@ -56,7 +56,8 @@ Ci-suit une description des paramètres de la fonction `manuscr-ismin` :
 	- `name` : le nom de l'auteur,
 	- `affiliation` : la filière de l'auteur,
 	- `year` : l'année dans laquelle est l'auteur dans son cursus,
-	- `class` : la classe de l'auteur ;
+	- `class` : la classe de l'auteur,
+	- `mail` : son adresse mail ;
 - `date` : la date,
 - `logo` : le logo que vous voulez utiliser ; par défaut, c'est celui de l'EMSE,
 - `main-color` : la couleur de thème du document ; par défaut, il s'agit du "violet EMSE",
