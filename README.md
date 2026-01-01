@@ -31,7 +31,7 @@ Je conseille d'utiliser [l'application Web Typst](https://typst.app/), mais il e
 Attention au fichier YAML, les noms des polices doivent être corrects.
 Par exemple, si on veut un look Typst par défaut :
 
-```
+```yml
 fonts:
   body-font: "Libertinus Serif"
   code-font: "Cascadia Mono"
@@ -42,7 +42,7 @@ fonts:
 #### Couleur
 
 La couleur est définie par une chaîne de caractères au format hexadécimal ; par exemple, si on veut du rouge tomate :
-```
+```yml
 main-color: "#FF6347"
 ```
 
