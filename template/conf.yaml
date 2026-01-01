@@ -3,3 +3,5 @@ fonts:
   code-font: "New Computer Modern Mono"
   math-font: "New Computer Modern Math"
   mono-font: "New Computer Modern Mono"
+
+main-color: "#572A86"
