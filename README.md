@@ -20,9 +20,31 @@ Je conseille d'utiliser [l'application Web Typst](https://typst.app/), mais il e
 - Le fichier `template.typ` contient toutes les règles et fonctions d'affichage,
 - le fichier `main.typ` lui contient le contenu que vous souhaitez inclure dans le rapport,
 - le fichier `bibs.yaml` contient les références bibliographiques (au format Hayagriva, mais Typst prend aussi en charge le format BibLaTeX, changer le fichier à votre guise),
-- le fichier `conf.yaml` sert à régler les différentes polices utilisées dans le document (par défaut il s'agit de la famille New Computer Modern),
+- le fichier `conf.yaml` sert à régler les différentes polices utilisées dans le document (par défaut il s'agit de la famille New Computer Modern) et la couleur principale (par défaut, le violet EMSE),
 - le répértoire `assets` contient les ressources graphiques pour le thème du _template_,
 - le répértoire `images` contient les images inclues dans le document.
+
+### `conf.yaml`
+
+#### Polices
+
+Attention au fichier YAML, les noms des polices doivent être corrects.
+Par exemple, si on veut un look Typst par défaut :
+
+```
+fonts:
+  body-font: "Libertinus Serif"
+  code-font: "Cascadia Mono"
+  math-font: "New Computer Modern Math"
+  mono-font: "Libertinus Mono"
+```
+
+#### Couleur
+
+La couleur est définie par une chaîne de caractères au format hexadécimal ; par exemple, si on veut du rouge tomate :
+```
+main-color: "#FF6347"
+```
 
 ### `manuscr-imsin`
 
