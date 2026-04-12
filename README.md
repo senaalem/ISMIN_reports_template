@@ -1,67 +1,66 @@
-# _Template_ rapport ISMIN
+# ISMIN Report _Template_
 
-Ce _template_ est celui que j'utilise pour écrire mes rapports à l'EMSE.
-Il utilise le langage Typst et fut grandement inspiré de [celui de Timothé Dupuch](https://github.com/thimotedupuch/Template_Rapport_ISMIN_Typst),
-du [_template_ Bubble](https://github.com/hzkonor/bubble-template),
-du [_template_ ilm](https://github.com/talal/ilm),
-et enfin du [_template_ Diatypst](https://github.com/skriptum/Diatypst).
-Beaucoup des règles de typographie ont été tirées du [_Butterick's Practical Typography_](https://practicaltypography.com/).
-Je conseille également la lecture de l'ouvrage _Règles françaises de typographie mathématique_ par Alexandre André [ici](http://sgalex.free.fr/typo-maths_fr.pdf).
+This _template_ is the one I use to write my reports at EMSE.
+It uses the Typst language and was greatly inspired by [Timothé Dupuch's template](https://github.com/thimotedupuch/Template_Rapport_ISMIN_Typst),
+the [Bubble _template_](https://github.com/hzkonor/bubble-template),
+the [ilm _template_](https://github.com/talal/ilm),
+and the [Diatypst _template_](https://github.com/skriptum/Diatypst).
+Many of the typographic rules were drawn from [_Butterick's Practical Typography_](https://practicaltypography.com/).
+I also recommend reading _Règles françaises de typographie mathématique_ by Alexandre André, available [here](http://sgalex.free.fr/typo-maths_fr.pdf).
 
-Le fichier `template_report_ISMIN.pdf` est un aperçu en PDF du résultat de la compilation.
-J'ai essayé de montrer toutes les possibilités qu'offrait Typst et la fonction `manuscr-ismin`, le contenu étant évidemment à ajuster à votre guise.
+The file [`manuscr-ismin.pdf`](https://github.com/senaalem/manuscr-ismin/blob/56a37c85d57dbdb37df4128097e57bcaf265cec9/manuscr-ismin.pdf) is a PDF preview of the compiled output.
+I have tried to showcase all the possibilities offered by Typst and the `manuscr-ismin` function; the content is obviously meant to be adjusted to your needs.
 
-Pour en savoir plus sur l'utilisation de Typst, vous pouvez consulter [la documentation](https://typst.app/docs), elle est très complète.
-Le Ctrl+Clic (ou Cmd+Clic) marche aussi sur les fonctions dans l'éditeur de l'application web.
+To learn more about Typst and its functions, you can refer to [the documentation](https://typst.app/docs), which is very comprehensive.
+Ctrl+Click (or Cmd+Click) also works on functions in the web app editor.
 
-## Utilisation
+## Usage
 
-Je conseille d'utiliser [l'application Web Typst](https://typst.app/), mais il est possible d'installer le compilateur en CLI sur sa machine.
-Une très bonne configuration est Visual Studio Code avec l'extension Tinymist.
-- Le fichier `template.typ` contient toutes les règles et fonctions d'affichage,
-- le fichier `main.typ` contient le contenu que vous souhaitez inclure dans le rapport,
-- le fichier `bibs.yaml` contient les références bibliographiques (au format Hayagriva, mais Typst prend aussi en charge le format BibLaTeX, changez le fichier à votre guise),
-- le répertoire `assets` contient les ressources graphiques pour le thème du _template_,
-- le répertoire `images` contient les images incluses dans le document.
+I recommend using the [Typst web app](https://typst.app/), but it is also possible to install the compiler as a CLI tool on your machine.
+A great setup is Visual Studio Code with the Tinymist extension.
+- The `template.typ` file contains all the display rules and functions,
+- the `main.typ` file contains the content you want to include in the report,
+- the `bibs.yaml` file contains bibliographic references (in Hayagriva format, but Typst also supports BibLaTeX — swap the file as you see fit),
+- the `assets` directory contains the graphic resources for the _template_ theme,
+- the `images` directory contains the images included in the document.
 
 ### `manuscr-ismin`
 
-Toute la configuration se fait directement via les paramètres de la fonction `manuscr-ismin` dans `main.typ`.
-Ci-suit une description de ses paramètres :
+All configuration is done directly through the parameters of the `manuscr-ismin` function in `main.typ`.
+Below is a description of its parameters:
 
-- `title` : le titre du document (obligatoire),
-- `subtitle` : le sous-titre,
-- `school` : informations sur l'école, sous forme de dictionnaire :
-  - `name` : le nom de l'école,
-  - `subname` : le nom du campus ou de la subdivision ;
-- `course` : informations sur l'enseignement, sous forme de dictionnaire :
-  - `ue` : le label affiché pour l'unité pédagogique (ex. `"UE"`),
-  - `ecue` : le label affiché pour l'élément constitutif (ex. `"ECUE"`),
-  - `name` : le nom de l'unité pédagogique,
-  - `subname` : le nom de l'élément constitutif ;
-- `authors` : liste des auteurs, chacun sous forme de dictionnaire ; pour n'utiliser qu'un seul auteur, ne pas oublier de laisser une virgule à la fin :
-  - `name` : le nom de l'auteur,
-  - `affiliation` : la filière de l'auteur,
-  - `email` : son adresse mail ;
-- `mentor1`, `mentor2` : encadrants, chacun sous forme de dictionnaire :
-  - `role` : le rôle (ex. `"Encadrant"`, `"Co-encadrant"`),
-  - `name` : le nom,
-  - `email` : l'adresse mail ;
-- `date` : la date,
-- `academic-year` : l'année scolaire,
-- `logo` : le logo à utiliser ; par défaut, celui de l'EMSE,
-- `header` : le contenu de l'en-tête (contenu Typst libre),
-- `show-imt-triangle` : booléen pour afficher ou non le triangle décoratif IMT sur la page de garde (par défaut `true`),
-- `latex-look` : booléen pour utiliser les polices _Computer Modern_ à la place des polices par défaut, pour un rendu proche de LaTeX (par défaut `false`),
-- `main-colour` : la couleur principale du document ; par défaut, le violet EMSE (`violet-emse`),
-- `other-colour` : la couleur secondaire du document, utilisée notamment pour le triangle décoratif ; par défaut, le bleu IMT (`blue-imt`),
-- `lang`: la langue du texte, peut être `"fr"` ou `"en"` (ne pas oublier de changer les titres des différentes tables).
+- `title`: the document title (required),
+- `subtitle`: the subtitle,
+- `school`: information about the school, as a dictionary:
+  - `name`: the school name,
+  - `subname`: the campus or subdivision name;
+- `course`: information about the course, as a dictionary:
+  - `ue`: the label displayed for the teaching unit (e.g. `"UE"`),
+  - `ecue`: the label displayed for the constituent element (e.g. `"ECUE"`),
+  - `name`: the name of the teaching unit,
+  - `subname`: the name of the constituent element;
+- `authors`: list of authors, each as a dictionary; if using only one author, do not forget to leave a trailing comma:
+  - `name`: the author's name,
+  - `affiliation`: the author's track/programme,
+  - `email`: their email address;
+- `mentor1`, `mentor2`: supervisors, each as a dictionary:
+  - `role`: the role (e.g. `"Supervisor"`, `"Co-supervisor"`),
+  - `name`: the name,
+  - `email`: the email address;
+- `date`: the date,
+- `academic-year`: the academic year,
+- `logo`: the logo to use; defaults to the EMSE logo,
+- `header`: the header content (free Typst content),
+- `show-imt-triangle`: boolean to show or hide the decorative IMT triangle on the cover page (default: `true`),
+- `latex-look`: boolean to use _New Computer Modern_ fonts instead of the default ones, for a LaTeX-like appearance (default: `false`),
+- `main-colour`: the document's primary colour; defaults to the EMSE purple (`violet-emse`),
+- `other-colour`: the document's secondary colour, used notably for the decorative triangle; defaults to the IMT blue (`blue-imt`),
+- `lang`: changes typographic rules to suit either the French or the English language; can be `"fr"` or `"en"`.
 
-### Les fonctions et couleurs
+### Functions and colours
 
-- `violet-emse` : la couleur violette de l'EMSE,
-- `gray-emse` : la couleur grise de l'EMSE,
-- `blue-imt` : la couleur bleue de l'IMT,
-
-- `lining` : pour avoir des chiffres en style classique (_lining_) localement ; les chiffres elzéviriens s'intègrent bien au texte minuscule, mais mal à celui en majuscules.
-- `arcosh` : la fonction arc cosinus hyperbolique pour le mode mathématique.
+- `violet-emse`: the EMSE purple colour,
+- `gray-emse`: the EMSE grey colour,
+- `blue-imt`: the IMT blue colour,
+- `lining`: use to get lining (classic) numerals locally; old-style figures blend well with lowercase text, but not with uppercase,
+- `arcosh`: the inverse hyperbolic cosine function for math mode.
